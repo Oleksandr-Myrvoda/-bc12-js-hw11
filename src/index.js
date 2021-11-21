@@ -63,13 +63,13 @@ const onLoadMore = () => {
 };
 
 // ======== infinite scroll ========
-window.onscroll = function (ev) {
-  if (
-    (window.innerHeight + window.pageYOffset) / document.body.offsetHeight >= 0.95 &&
-    shouldScroll
-  ) {
-    onLoadMore('scroll', debounce(loadGallery, 300));
+
+window.onscroll = debounce(() => {
+  const ifWindowBottom =
+    (window.innerHeight + window.pageYOffset) / document.body.offsetHeight >= 0.95;
+  if (ifWindowBottom && shouldScroll) {
+    onLoadMore('scroll', loadGallery);
   }
-};
+}, 250);
 
 form.addEventListener('submit', onSubmit);
